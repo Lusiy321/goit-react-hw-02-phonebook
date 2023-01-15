@@ -1,19 +1,15 @@
-import { Profile } from "./Profile/profile";
-import user from "components/data/user.json";
-import data from "components/data/data.json";
-import friends from "components/data/friends.json"
-import transactions from "components/data/transactions.json"
-import { Stats } from "./Stats/stats";
-import { Friends } from "./FriendList/frends";
-import { Transactions } from "./Transactions/transactions";
+import { Component } from "react";
 
+export class App extends Component{
+  state = {
+    contacts: [
+      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
+    ],
+    filter: "",
+  };
 
-export const App = () => {
-  return <div>
-    <Profile user={user} />
-    <Stats title="Upload stats" stats={data} />
-    <Friends friends={friends} />
-    <Transactions transactions={transactions} />
-  </div>    
-};
+}
 

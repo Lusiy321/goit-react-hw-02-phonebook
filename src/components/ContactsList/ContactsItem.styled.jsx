@@ -4,19 +4,17 @@ export const Item = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  &:not(:last-child) {
-    margin-bottom: 30px;
-  }
+  margin: 20px 10px;
 `;
 
 export const Button = styled.button`
-  padding: 5px;
+  padding: 3px;
   width: 100px;
   font-weight: 400;
   font-size: 15px;
   line-height: 1.25;
-  background-color: skyblue;
+  background-color: yellow;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
 `;

@@ -9,27 +9,25 @@ export const Form = styled.form`
 
 export const Label = styled.label`
   margin-top: 10px;
-  font-weight: 400;
   font-size: 20px;
   line-height: 1.25;
 `;
 
 export const Input = styled.input`
-  margin-top: 10px;
-  font-weight: 400;
-  font-size: 15px;
+  margin-top: 15px;
+  font-size: 16px;
   line-height: 1.25;
+  border-radius: 5px;
 `;
 
 export const Button = styled.button`
   margin: 15px auto 10px auto;
   padding: 10px;
   width: 150px;
-  font-weight: 400;
   font-size: 15px;
   line-height: 1.25;
-  background-color: skyblue;
+  background-color: yellow;
   border: none;
-  border-radius: 10px;
+  border-radius: 15px;
   cursor: pointer;
 `;

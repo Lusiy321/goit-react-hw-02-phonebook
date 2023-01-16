@@ -1,15 +1,66 @@
-import { Component } from "react";
+import { Component } from 'react';
+import { nanoid } from 'nanoid';
+import Context from './Context';
+import { Filter } from './Filter/Filter';
+import { ContactForm } from './ContactsForm/ContactsForm';
+import { ContactList } from './ContactsList/ContactsList';
+import { Styles, PhonebookWrap, MainTitle, SecondaryTitle } from './Styles';
 
-export class App extends Component{
+export class App extends Component {
   state = {
     contacts: [
-      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
+      { id: 'id-1', name: 'Kolya Pushka', number: '459-12-56' },
+      { id: 'id-2', name: 'Stepan Sraka', number: '443-89-12' },
+      { id: 'id-3', name: 'Vasyl Mordovorot', number: '645-17-79' },
+      { id: 'id-4', name: 'Genka Metla', number: '227-91-26' },
+      { id: 'id-5', name: 'Tolya Vantus', number: '245-21-48' },
     ],
-    filter: "",
+    filter: '',
   };
 
-}
+  handleChange = evt => {
+    this.setState({ [evt.target.name]: evt.target.value });
+  };
 
+  getSubmitForm = ({ name, number }) => {
+    const normalazedFind = name.toLowerCase();
+
+    const isName = this.state.contacts.find(
+      contact => contact.name.toLowerCase() === normalazedFind
+    );
+    if (isName) {
+      return alert(`${name} is already in contacts.`);
+    }
+
+    this.setState(prevstate => ({
+      contacts: [{ name, number, id: nanoid(5) }, ...prevstate.contacts],
+    }));
+  };
+
+  deleteName = id => {
+    this.setState(prevstate => ({
+      contacts: prevstate.contacts.filter(contact => contact.id !== id),
+    }));
+  };
+
+  render() {
+    return (
+      <Context.Provider
+        value={{
+          contacts: this.state.contacts,
+          filter: this.state.filter,
+          onDeleteName: this.deleteName,
+        }}
+      >
+        <Styles />
+        <PhonebookWrap>
+          <MainTitle>Phonebook</MainTitle>
+          <ContactForm submitForm={this.getSubmitForm} />
+          <SecondaryTitle>Contacts</SecondaryTitle>
+          <Filter handleChange={this.handleChange} filter={this.state.filter} />
+          <ContactList />
+        </PhonebookWrap>
+      </Context.Provider>
+    );
+  }
+}

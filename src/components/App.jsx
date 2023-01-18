@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import Context from './Context';
 import { Filter } from './Filter/Filter';
 import { ContactForm } from './ContactsForm/ContactsForm';
 import { ContactList } from './ContactsList/ContactsList';
@@ -42,25 +41,27 @@ export class App extends Component {
       contacts: prevstate.contacts.filter(contact => contact.id !== id),
     }));
   };
+  getVisibleContacts = () => {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
 
   render() {
+    const visibleContacts = this.getVisibleContacts();
     return (
-      <Context.Provider
-        value={{
-          contacts: this.state.contacts,
-          filter: this.state.filter,
-          onDeleteName: this.deleteName,
-        }}
-      >
+      <>
         <Styles />
         <PhonebookWrap>
           <MainTitle>Phonebook</MainTitle>
           <ContactForm submitForm={this.getSubmitForm} />
           <SecondaryTitle>Contacts</SecondaryTitle>
           <Filter handleChange={this.handleChange} filter={this.state.filter} />
-          <ContactList />
+          <ContactList contacts={visibleContacts} onDelete={this.deleteName} />
         </PhonebookWrap>
-      </Context.Provider>
+      </>
     );
   }
 }
